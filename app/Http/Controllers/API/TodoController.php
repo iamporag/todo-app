@@ -22,7 +22,7 @@ class TodoController extends Controller
         -> paginate($perPage);
 
         return response()->json([
-            'message' => 'Todo data fetched successfully',
+            'message' => 'Todo fetched successfully',
             'result' => [
                 'data' => $todos->items(),
                       'meta' => [
@@ -67,7 +67,7 @@ class TodoController extends Controller
     public function show(Todo $todo)
     {
         return response()->json([
-            'message' => 'Todo data fetched successfully',
+            'message' => 'Todo fetched successfully',
             'result' => [
                 'data' => $todo,
             ]
@@ -83,13 +83,21 @@ class TodoController extends Controller
         ]);
 
         $todo->update($validated);
-        return response()->json($todo,200);
+        return response()->json([
+            'message' => 'Todo updated successfully',
+            'result' => null,
+        ],200);
     }
 
     // Delete TODO
     public function destroy(Todo $todo)
     {
         $todo->delete();
-        return response()->json(['message' => 'Todo deleted successfully'],200);
+        return response()->json(
+            [
+                'message' => 'Todo deleted successfully',
+                'result' => null,
+            
+        ],200);
     }
 }
