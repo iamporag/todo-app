@@ -49,12 +49,20 @@ public function login(Request $request)
         return response()->json(['message' => 'Invalid credentials'], 401);
     }
 
+    // Sanctum Token Create
     $token = $user->createToken('auth_token')->plainTextToken;
 
     return response()->json([
+        'message' => 'Login successfully',
+        'result' => [
         'access_token' => $token,
-        'token_type' => 'Bearer',
-    ]);
+        // 'token_type' => 'Bearer',
+        'user' => [
+        'id' => $user->id,
+        'full_name' => $user->name,
+        ]
+        ]
+    ],200);
 }
 
     public function logout(Request $request)
